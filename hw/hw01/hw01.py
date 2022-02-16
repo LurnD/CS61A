@@ -1,4 +1,4 @@
-from operator import add, sub
+from operator import add, invert, sub
 
 
 def a_plus_abs_b(a, b):
@@ -10,9 +10,9 @@ def a_plus_abs_b(a, b):
     5
     """
     if b < 0:
-        f = _____
+        f = sub
     else:
-        f = _____
+        f = add
     return f(a, b)
 
 
@@ -40,7 +40,7 @@ def two_of_three(x, y, z):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return _____
+    return x * x + y * y + z * z - max(x, y, z) * max(x, y, z)
 
 
 def two_of_three_syntax_check():
@@ -64,13 +64,17 @@ def largest_factor(n):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
-    "*** YOUR CODE HERE ***"
+    factor = 1
+    for i in range(1, n):
+        if n % i == 0:
+            factor = i
+    return factor
 
 
 def limited(x, z, limit):
     """Logic that is common to invert and change."""
     if x != 0:
-        return min(z, limit)
+        return min(z/x, limit)
     else:
         return limit
 
@@ -90,7 +94,7 @@ def invert_short(x, limit):
     >>> invert_short(x, 100)  # No error, even though 1/x divides by 0!
     100
     """
-    return limited(x, 1 / x, limit)
+    return limited(x, 1, limit)
 
 
 def change_short(x, y, limit):
@@ -108,7 +112,7 @@ def change_short(x, y, limit):
     >>> change_short(x, y, 100)  # No error, even though abs(y - x) / x divides by 0!
     100
     """
-    return limited(x, abs(y - x) / x, limit)
+    return limited(x, abs(y - x), limit)
 
 
 def invert_and_change_syntax_check():
@@ -139,11 +143,26 @@ def hailstone(n):
     >>> a
     7
     """
-    "*** YOUR CODE HERE ***"
+    lst = []
+    lst.append(n)
+
+    while n > 1:
+        if n % 2 == 0:
+            n /= 2
+            lst.append(int(n))
+        else:
+            n = n * 3 + 1
+            lst.append(int(n))
+
+    for i in lst:
+        print(i)
+
+    return len(lst)
 
 
 "*** YOUR CODE HERE ***"
-quine = ''
+# @Source Github https://github.com/xxxxxuxin/CS61A-fa21/blob/master/hw01/hw01.py
+quine = 's="print(\'s=\'+repr(s)+\';eval(s)\')";eval(s)\n'
 
 
 def quine_test():
